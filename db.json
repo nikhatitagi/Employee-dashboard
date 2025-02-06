@@ -1,0 +1,44 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "role": "Software Engineer",
+      "status": "Online",
+      "email": "john.doe@example.com",
+      "last_active": "2024-02-05T10:30:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "role": "Product Manager",
+      "status": "Offline",
+      "email": "jane.smith@example.com",
+      "last_active": "2024-02-04T14:15:00Z"
+    },
+    {
+      "id": "2ac2",
+      "name": "Nikhat Mainuddin Itagi",
+      "role": "Intern",
+      "email": "nikhatmitagi@gmail.com",
+      "status": "Offline",
+      "last_active": "2025-02-1"
+    },
+    {
+      "id": "afcd",
+      "name": "Nikhat Mainuddin Itagi",
+      "role": "Intern",
+      "email": "nikhatmitagi@gmail.com",
+      "status": "Online",
+      "last_active": "2025-02-12"
+    },
+    {
+      "id": "57c0",
+      "name": "Nadeem Mainuddin Itagi",
+      "role": "HR",
+      "email": "nadeemmitagi@gmail.com",
+      "status": "Online",
+      "last_active": "2027-12-17"
+    }
+  ]
+}
