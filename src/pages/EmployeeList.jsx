@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react"; 
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom"; 
+import axios from "axios"; 
 
-const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
-  const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All");
+const EmployeeList = () => { 
+  const [employees, setEmployees] = useState([]); 
+  const [error, setError] = useState(false); 
+  const [search, setSearch] = useState(""); 
+  const [statusFilter, setStatusFilter] = useState("All"); 
 
   useEffect(() => {
     axios.get("http://localhost:3000/employees")
       .then((response) => {
-        setEmployees(response.data);
+        if (response.status === 200) {
+          setEmployees(response.data);
+        }
       })
       .catch((error) => {
         console.error("Error fetching employees:", error);
+        setError(true);
       });
   }, []);
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold mb-4">Error fetching employees.</h1>
+        <Link to="/register" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+          Register New Employee
+        </Link>
+      </div>
+    );
+  }
+
+  if (employees.length === 0) {
+    return <div className="min-h-screen flex items-center justify-center">No employees found.</div>;
+  }
 
   // Filter employees based on search and status
   const filteredEmployees = employees.filter((employee) => {
@@ -27,10 +46,11 @@ const EmployeeList = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Employee Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center color text-black">Employee Dashboard</h1>
+      <Link to="/register" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+        Register New Employee
+      </Link>
 
-      {/* Link to Register New Employee */}
-      <Link to="/register" className="mb-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">Register New Employee</Link>
 
       {/* Search Bar */}
       <input
@@ -40,7 +60,6 @@ const EmployeeList = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-
       {/* Status Filter */}
       <select
         className="p-2 border rounded mb-4 shadow"
@@ -51,22 +70,19 @@ const EmployeeList = () => {
         <option value="Online">Online</option>
         <option value="Offline">Offline</option>
       </select>
-
-      {/* Employee List */}
-      {filteredEmployees.length === 0 && <p className="text-red-500 text-center">Employee not found</p>}
-
-      <div className="bg-white shadow-md rounded-lg p-4">
-        {filteredEmployees.map((employee) => ( 
-
-          <div key={employee.id} className="block p-3 border-b">
-            <div className="flex justify-between">
-              <Link to={`/employee/${employee.id}`} className="font-semibold text-lg text-blue-500 hover:underline">{employee.name}</Link>
-
-              <span className={`px-2 py-1 rounded ${employee.status === "Online" ? "bg-green-500 text-white" : "bg-gray-400 text-white"}`}>
-                {employee.status}
-              </span>
-            </div>
-            <p className="text-gray-600">{employee.role}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredEmployees.map((employee) => (
+          <div key={employee.id} className="bg-white shadow-md rounded-lg p-4">
+            <h2 className="text-xl font-bold">{employee.name}</h2>
+            <p><strong>Email:</strong> {employee.email}</p>
+            <p><strong>Role:</strong> {employee.role}</p>
+            <p><strong>Status:</strong> {employee.status}</p>
+            <p><strong>Last Active:</strong> {employee.last_active}</p>
+            <Link 
+              to={`/employee/${employee.id}`} 
+              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+              View Details
+            </Link>
           </div>
         ))}
       </div>

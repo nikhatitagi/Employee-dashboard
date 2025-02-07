@@ -39,6 +39,22 @@
       "email": "nadeemmitagi@gmail.com",
       "status": "Online",
       "last_active": "2027-12-17"
+    },
+    {
+      "id": "1b44",
+      "name": "reshma",
+      "role": "Intern",
+      "email": "reshmamitagi@gmail.com",
+      "status": "Online",
+      "last_active": "2025-02-12"
+    },
+    {
+      "id": "c6b4",
+      "name": "Mainuddin Itagi",
+      "role": "Intern",
+      "email": "mainuddinritagi@gmail.com",
+      "status": "Offline",
+      "last_active": "2025-01-01"
     }
   ]
 }
