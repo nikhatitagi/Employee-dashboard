@@ -9,7 +9,8 @@ const EmployeeList = () => {
   const [statusFilter, setStatusFilter] = useState("All"); 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/employees")
+    axios.get("https://your-backend-url.com/employees")
+
       .then((response) => {
         if (response.status === 200) {
           setEmployees(response.data);
